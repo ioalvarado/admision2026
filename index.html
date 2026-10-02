@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Evaluaciones - Instituto Superior RETOS</title>
-    <!-- Fuente elegante Google Fonts (Inter) -->
+    <!-- Fuente Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #0d2b45;    /* Azul institucional */
-            --secondary-color: #203c56;  /* Azul secundario */
-            --accent-color: #d4af37;     /* Dorado elegante */
-            --bg-color: #f4f6f9;         /* Gris claro de fondo */
-            --card-bg: #ffffff;          /* Blanco puro para contenedor */
-            --text-color: #2c3e50;       /* Texto oscuro */
-            --text-muted: #6c757d;      /* Texto secundario */
-            --hover-color: #1a365d;      /* Hover botón */
+            /* Colores tomados directamente del logotipo */
+            --primary-dark: #33522b;     /* Verde oscuro institucional */
+            --accent-green: #7cb342;     /* Verde claro / lima */
+            --bg-light: #f5f3e9;         /* Crema claro del fondo del logo */
+            --card-bg: #ffffff;          /* Blanco de la tarjeta */
+            --text-color: #263b20;       /* Texto oscuro */
+            --text-muted: #5e6c58;      /* Texto secundario */
+            --hover-dark: #243c1e;       /* Hover oscuro para botones */
         }
 
         * {
@@ -29,7 +29,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-light);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -43,43 +43,34 @@
             width: 100%;
             max-width: 480px;
             padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(51, 82, 43, 0.08);
+            border: 1px solid rgba(51, 82, 43, 0.1);
             text-align: center;
         }
 
         .brand-header {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        .brand-header h2 {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-color);
-            margin-bottom: 8px;
-        }
-
-        .brand-header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 8px;
+        .logo-img {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
         }
 
         .brand-header p {
             font-size: 14px;
             color: var(--text-muted);
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .divider {
             height: 3px;
             width: 50px;
-            background-color: var(--accent-color);
-            margin: 20px auto 30px auto;
+            background-color: var(--accent-green);
+            margin: 15px auto 25px auto;
             border-radius: 2px;
         }
 
@@ -93,21 +84,23 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: var(--primary-color);
+            background-color: var(--primary-dark);
             color: #ffffff;
             text-decoration: none;
             padding: 16px 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(13, 43, 69, 0.15);
+            box-shadow: 0 4px 14px rgba(51, 82, 43, 0.2);
+            border: 2px solid transparent;
         }
 
         .btn-evaluation:hover {
-            background-color: var(--hover-color);
+            background-color: var(--hover-dark);
+            border-color: var(--accent-green);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(13, 43, 69, 0.25);
+            box-shadow: 0 6px 20px rgba(51, 82, 43, 0.3);
         }
 
         .btn-evaluation:active {
@@ -118,13 +111,12 @@
             width: 20px;
             height: 20px;
             fill: currentColor;
-            opacity: 0.8;
+            color: var(--accent-green);
             transition: transform 0.3s ease;
         }
 
         .btn-evaluation:hover .btn-icon {
             transform: translateX(4px);
-            opacity: 1;
         }
 
         .footer {
@@ -137,35 +129,35 @@
 <body>
 
     <div class="container">
-        <!-- Encabezado Institucional -->
+        <!-- Encabezado con Logotipo -->
         <header class="brand-header">
-            <h2>Instituto Superior</h2>
-            <h1>RETOS</h1>
+            <!-- Coloca aquí el nombre exacto del archivo de la imagen de tu logo -->
+            <img src="logotipo instituto retos-04.png" alt="Instituto Superior RETOS" class="logo-img">
             <div class="divider"></div>
             <p>Portal Institucional de Evaluaciones</p>
         </header>
 
-        <!-- Enlaces a evaluaciones -->
+        <!-- Enlaces a las evaluaciones -->
         <main class="buttons-wrapper">
             
             <a href="https://forms.cloud.microsoft/r/0Z6P1Cekzt" target="_blank" class="btn-evaluation">
                 <span>Evaluación de Comprensión Lectora</span>
                 <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
 
             <a href="https://forms.cloud.microsoft/r/KKgVA731V4" target="_blank" class="btn-evaluation">
                 <span>Evaluación de Personalidad</span>
                 <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
 
             <a href="https://forms.cloud.microsoft/r/KKgVA731V4" target="_blank" class="btn-evaluation">
                 <span>Evaluación de Matemática</span>
                 <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
 
