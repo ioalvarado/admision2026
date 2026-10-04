@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Portal de Evaluaciones - Instituto Superior RETOS</title>
-    <!-- Fuente Google Fonts (Inter) -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
+
         :root {
-            /* Colores tomados directamente del logotipo */
-            --primary-dark: #33522b;     /* Verde oscuro institucional */
-            --accent-green: #7cb342;     /* Verde claro / lima */
-            --bg-light: #f5f3e9;         /* Crema claro del fondo del logo */
-            --card-bg: #ffffff;          /* Blanco de la tarjeta */
-            --text-color: #263b20;       /* Texto oscuro */
-            --text-muted: #5e6c58;      /* Texto secundario */
-            --hover-dark: #243c1e;       /* Hover oscuro para botones */
+            --primary-dark: #33522b;
+            --accent-green: #7cb342;
+            --bg-light: #f5f3e9;
+            --card-bg: #ffffff;
+            --text-color: #263b20;
+            --text-muted: #5e6c58;
+            --hover-dark: #243c1e;
+
+            --disabled-bg: #b8beb5;
+            --disabled-text: #6d7469;
+
+            --error-color: #b3261e;
+            --success-color: #33522b;
         }
+
 
         * {
             box-sizing: border-box;
@@ -27,147 +43,1299 @@
             padding: 0;
         }
 
+
         body {
             font-family: 'Inter', sans-serif;
+
             background-color: var(--bg-light);
+
             color: var(--text-color);
+
             min-height: 100vh;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
+
             padding: 20px;
         }
 
+
         .container {
             background-color: var(--card-bg);
+
             width: 100%;
+
             max-width: 480px;
+
             padding: 40px 30px;
+
             border-radius: 20px;
-            box-shadow: 0 12px 35px rgba(51, 82, 43, 0.08);
-            border: 1px solid rgba(51, 82, 43, 0.1);
+
+            box-shadow:
+                0 12px 35px
+                rgba(51, 82, 43, 0.08);
+
+            border:
+                1px solid
+                rgba(51, 82, 43, 0.1);
+
             text-align: center;
         }
+
 
         .brand-header {
             margin-bottom: 25px;
         }
 
+
         .logo-img {
             max-width: 280px;
+
             width: 100%;
+
             height: auto;
+
             margin-bottom: 15px;
         }
 
+
         .brand-header p {
             font-size: 14px;
+
             color: var(--text-muted);
+
             font-weight: 500;
         }
 
+
         .divider {
             height: 3px;
+
             width: 50px;
+
             background-color: var(--accent-green);
+
             margin: 15px auto 25px auto;
+
             border-radius: 2px;
         }
 
+
         .buttons-wrapper {
             display: flex;
+
             flex-direction: column;
+
             gap: 16px;
         }
 
+
         .btn-evaluation {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             background-color: var(--primary-dark);
+
             color: #ffffff;
+
             text-decoration: none;
+
             padding: 16px 20px;
+
             border-radius: 12px;
+
             font-size: 15px;
+
             font-weight: 600;
+
             transition: all 0.3s ease;
-            box-shadow: 0 4px 14px rgba(51, 82, 43, 0.2);
+
+            box-shadow:
+                0 4px 14px
+                rgba(51, 82, 43, 0.2);
+
             border: 2px solid transparent;
+
+            cursor: pointer;
         }
+
 
         .btn-evaluation:hover {
             background-color: var(--hover-dark);
+
             border-color: var(--accent-green);
+
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(51, 82, 43, 0.3);
+
+            box-shadow:
+                0 6px 20px
+                rgba(51, 82, 43, 0.3);
         }
+
 
         .btn-evaluation:active {
             transform: translateY(0);
         }
 
+
+        /* Botón deshabilitado */
+
+        .btn-evaluation.disabled {
+            background-color: var(--disabled-bg);
+
+            color: var(--disabled-text);
+
+            cursor: not-allowed;
+
+            box-shadow: none;
+
+            transform: none;
+
+            border-color: transparent;
+
+            pointer-events: none;
+        }
+
+
+        .btn-evaluation.disabled .btn-icon {
+            color: #7d8479;
+        }
+
+
         .btn-icon {
             width: 20px;
+
             height: 20px;
+
             fill: currentColor;
+
             color: var(--accent-green);
+
             transition: transform 0.3s ease;
+
+            flex-shrink: 0;
         }
+
 
         .btn-evaluation:hover .btn-icon {
             transform: translateX(4px);
         }
 
+
+        /* Panel para introducir código */
+
+        .code-panel {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background-color: #f8f9f5;
+
+            border:
+                1px solid
+                rgba(51, 82, 43, 0.15);
+
+            border-radius: 14px;
+
+            text-align: left;
+        }
+
+
+        .code-panel.active {
+            display: block;
+        }
+
+
+        .code-title {
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: var(--primary-dark);
+
+            margin-bottom: 7px;
+        }
+
+
+        .code-description {
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            color: var(--text-muted);
+
+            margin-bottom: 14px;
+        }
+
+
+        .code-form {
+            display: flex;
+
+            gap: 8px;
+        }
+
+
+        .code-input {
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 12px 13px;
+
+            border:
+                1px solid
+                #c9cec5;
+
+            border-radius: 9px;
+
+            font-family: 'Inter', sans-serif;
+
+            font-size: 14px;
+
+            text-transform: uppercase;
+
+            outline: none;
+        }
+
+
+        .code-input:focus {
+            border-color: var(--accent-green);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(124, 179, 66, 0.15);
+        }
+
+
+        .code-button {
+            padding: 12px 16px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background-color: var(--primary-dark);
+
+            color: #ffffff;
+
+            font-family: 'Inter', sans-serif;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+
+        .code-button:hover {
+            background-color: var(--hover-dark);
+        }
+
+
+        .code-message {
+            font-size: 12px;
+
+            margin-top: 10px;
+
+            min-height: 18px;
+        }
+
+
+        .code-message.error {
+            color: var(--error-color);
+        }
+
+
+        .code-message.success {
+            color: var(--success-color);
+        }
+
+
+        /* Mensaje de estado */
+
+        .status {
+            font-size: 12px;
+
+            color: var(--text-muted);
+
+            margin-top: 18px;
+
+            line-height: 1.5;
+
+            min-height: 36px;
+        }
+
+
+        /* Pie de página */
+
         .footer {
             margin-top: 35px;
+
             font-size: 12px;
+
             color: var(--text-muted);
         }
+
+
+        /* Responsive */
+
+        @media (max-width: 480px) {
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .code-form {
+                flex-direction: column;
+            }
+
+            .code-button {
+                width: 100%;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
+
     <div class="container">
-        <!-- Encabezado con Logotipo -->
+
+
+        <!-- ENCABEZADO -->
+
         <header class="brand-header">
-            <!-- Coloca aquí el nombre exacto del archivo de la imagen de tu logo -->
-            <img src="logotipo instituto retos-04.png" alt="Instituto Superior RETOS" class="logo-img">
+
+            <img
+                src="logotipo instituto retos-04.png"
+                alt="Instituto Superior RETOS"
+                class="logo-img"
+            >
+
             <div class="divider"></div>
-            <p>Portal Institucional de Evaluaciones</p>
+
+            <p>
+                Portal Institucional de Evaluaciones
+            </p>
+
         </header>
 
-        <!-- Enlaces a las evaluaciones -->
+
+
+        <!-- EVALUACIONES -->
+
         <main class="buttons-wrapper">
-            
-            <a href="https://forms.cloud.microsoft/r/0Z6P1Cekzt" target="_blank" class="btn-evaluation">
-                <span>Evaluación de Comprensión Lectora</span>
-                <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+
+            <!-- EVALUACIÓN 1 -->
+
+            <a
+                href="#"
+                id="btnEvaluacion1"
+                class="btn-evaluation"
+                onclick="abrirEvaluacion1(event)"
+            >
+
+                <span>
+                    1. Evaluación de Comprensión Lectora
+                </span>
+
+                <svg
+                    class="btn-icon"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path
+                        d="M5 12h14M12 5l7 7-7 7"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
                 </svg>
+
             </a>
 
-            <a href="https://forms.cloud.microsoft/r/KKgVA731V4" target="_blank" class="btn-evaluation">
-                <span>Evaluación de Personalidad</span>
-                <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+
+            <!-- EVALUACIÓN 2 -->
+
+            <a
+                href="#"
+                id="btnEvaluacion2"
+                class="btn-evaluation disabled"
+                onclick="abrirEvaluacion2(event)"
+                aria-disabled="true"
+            >
+
+                <span>
+                    2. Evaluación de Personalidad
+                </span>
+
+                <svg
+                    class="btn-icon"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path
+                        d="M5 12h14M12 5l7 7-7 7"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
                 </svg>
+
             </a>
 
-            <a href="https://forms.cloud.microsoft/r/BHeiDSzJ7f?origin=lprLink" target="_blank" class="btn-evaluation">
-                <span>Evaluación de Matemática</span>
-                <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+
+            <!-- EVALUACIÓN 3 -->
+
+            <a
+                href="#"
+                id="btnEvaluacion3"
+                class="btn-evaluation disabled"
+                onclick="abrirEvaluacion3(event)"
+                aria-disabled="true"
+            >
+
+                <span>
+                    3. Evaluación de Matemática
+                </span>
+
+                <svg
+                    class="btn-icon"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path
+                        d="M5 12h14M12 5l7 7-7 7"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
                 </svg>
+
             </a>
 
         </main>
 
-        <!-- Pie de página -->
+
+
+        <!-- PANEL PARA DESBLOQUEAR EVALUACIÓN 2 -->
+
+        <div
+            id="panelCodigo2"
+            class="code-panel"
+        >
+
+            <div class="code-title">
+                Evaluación 1 finalizada
+            </div>
+
+            <div class="code-description">
+
+                Para continuar con la Evaluación 2,
+                ingrese el código proporcionado por el evaluador.
+
+            </div>
+
+            <div class="code-form">
+
+                <input
+                    type="text"
+                    id="codigo2"
+                    class="code-input"
+                    placeholder="Ingrese el código"
+                    maxlength="10"
+                    autocomplete="off"
+                    onkeydown="
+                        if(event.key === 'Enter')
+                            validarCodigo2();
+                    "
+                >
+
+                <button
+                    type="button"
+                    class="code-button"
+                    onclick="validarCodigo2()"
+                >
+                    Continuar
+                </button>
+
+            </div>
+
+            <div
+                id="mensajeCodigo2"
+                class="code-message"
+            ></div>
+
+        </div>
+
+
+
+        <!-- PANEL PARA DESBLOQUEAR EVALUACIÓN 3 -->
+
+        <div
+            id="panelCodigo3"
+            class="code-panel"
+        >
+
+            <div class="code-title">
+                Evaluación 2 finalizada
+            </div>
+
+            <div class="code-description">
+
+                Para continuar con la Evaluación 3,
+                ingrese el código proporcionado por el evaluador.
+
+            </div>
+
+            <div class="code-form">
+
+                <input
+                    type="text"
+                    id="codigo3"
+                    class="code-input"
+                    placeholder="Ingrese el código"
+                    maxlength="10"
+                    autocomplete="off"
+                    onkeydown="
+                        if(event.key === 'Enter')
+                            validarCodigo3();
+                    "
+                >
+
+                <button
+                    type="button"
+                    class="code-button"
+                    onclick="validarCodigo3()"
+                >
+                    Continuar
+                </button>
+
+            </div>
+
+            <div
+                id="mensajeCodigo3"
+                class="code-message"
+            ></div>
+
+        </div>
+
+
+
+        <!-- MENSAJE DE ESTADO -->
+
+        <div
+            class="status"
+            id="status"
+        >
+            Complete la Evaluación 1 para comenzar.
+        </div>
+
+
+
+        <!-- PIE DE PÁGINA -->
+
         <footer class="footer">
-            <p>&copy; Instituto Especializado de Nivel Superior RETOS. Todos los derechos reservados.</p>
+
+            <p>
+                &copy;
+                Instituto Especializado de Nivel Superior RETOS.
+                Todos los derechos reservados.
+            </p>
+
         </footer>
+
+
     </div>
 
+
+
+    <script>
+
+
+        /* =====================================================
+           VARIABLES
+           ===================================================== */
+
+        let ventanaEvaluacion1 = null;
+
+        let ventanaEvaluacion2 = null;
+
+
+
+        /* =====================================================
+           URL DE LAS EVALUACIONES
+           ===================================================== */
+
+        const URL_EVALUACION_1 =
+            'https://forms.cloud.microsoft/r/0Z6P1Cekzt';
+
+
+        const URL_EVALUACION_2 =
+            'https://forms.cloud.microsoft/r/KKgVA731V4';
+
+
+        /*
+         * IMPORTANTE:
+         *
+         * Sustituye esta dirección por el enlace real
+         * de Microsoft Forms correspondiente a Matemática.
+         */
+
+        const URL_EVALUACION_3 =
+            'https://forms.cloud.microsoft/r/COLOCA-AQUI-EL-ENLACE-DE-MATEMATICA';
+
+
+
+        /* =====================================================
+           CÓDIGOS DE AUTORIZACIÓN
+           ===================================================== */
+
+        /*
+         * Este código habilita la Evaluación 2.
+         */
+
+        const CODIGO_EVALUACION_2 =
+            'ER2562';
+
+
+        /*
+         * Este código habilita la Evaluación 3.
+         */
+
+        const CODIGO_EVALUACION_3 =
+            'ER3432';
+
+
+
+        /* =====================================================
+           CONFIGURACIÓN DE LAS VENTANAS
+           ===================================================== */
+
+        const CONFIG_VENTANA =
+            'popup=yes,' +
+            'resizable=yes,' +
+            'scrollbars=yes,' +
+            'width=1000,' +
+            'height=750';
+
+
+
+        /* =====================================================
+           HABILITAR BOTÓN
+           ===================================================== */
+
+        function habilitarBoton(idBoton) {
+
+            const boton =
+                document.getElementById(idBoton);
+
+            boton.classList.remove('disabled');
+
+            boton.setAttribute(
+                'aria-disabled',
+                'false'
+            );
+
+        }
+
+
+
+        /* =====================================================
+           DESHABILITAR BOTÓN
+           ===================================================== */
+
+        function deshabilitarBoton(idBoton) {
+
+            const boton =
+                document.getElementById(idBoton);
+
+            boton.classList.add('disabled');
+
+            boton.setAttribute(
+                'aria-disabled',
+                'true'
+            );
+
+        }
+
+
+
+        /* =====================================================
+           ACTUALIZAR ESTADO
+           ===================================================== */
+
+        function actualizarEstado(mensaje) {
+
+            document
+                .getElementById('status')
+                .textContent = mensaje;
+
+        }
+
+
+
+        /* =====================================================
+           ABRIR EVALUACIÓN 1
+           ===================================================== */
+
+        function abrirEvaluacion1(event) {
+
+            event.preventDefault();
+
+
+            /*
+             * Si ya está abierta,
+             * enfocarla.
+             */
+
+            if (
+                ventanaEvaluacion1 &&
+                !ventanaEvaluacion1.closed
+            ) {
+
+                ventanaEvaluacion1.focus();
+
+                return;
+
+            }
+
+
+            /*
+             * Abrir la ventana.
+             */
+
+            ventanaEvaluacion1 =
+                window.open(
+                    URL_EVALUACION_1,
+                    'Ev1',
+                    CONFIG_VENTANA
+                );
+
+
+            /*
+             * Verificar si fue bloqueada.
+             */
+
+            if (!ventanaEvaluacion1) {
+
+                alert(
+                    'El navegador bloqueó la ventana de la Evaluación 1.\n\n' +
+                    'Permita las ventanas emergentes para este sitio.'
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Deshabilitar el botón.
+             */
+
+            deshabilitarBoton(
+                'btnEvaluacion1'
+            );
+
+
+            actualizarEstado(
+                'Complete la Evaluación 1 y cierre la ventana al finalizar.'
+            );
+
+
+            /*
+             * Vigilar cierre.
+             */
+
+            vigilarEvaluacion1();
+
+        }
+
+
+
+        /* =====================================================
+           VIGILAR EVALUACIÓN 1
+           ===================================================== */
+
+        function vigilarEvaluacion1() {
+
+            const intervalo =
+                setInterval(function () {
+
+
+                    if (
+                        ventanaEvaluacion1 &&
+                        ventanaEvaluacion1.closed
+                    ) {
+
+                        clearInterval(intervalo);
+
+
+                        /*
+                         * Mostrar panel de código.
+                         */
+
+                        document
+                            .getElementById('panelCodigo2')
+                            .classList.add('active');
+
+
+                        /*
+                         * Enfocar campo.
+                         */
+
+                        document
+                            .getElementById('codigo2')
+                            .focus();
+
+
+                        actualizarEstado(
+                            'La Evaluación 1 fue cerrada. Ingrese el código proporcionado por el evaluador.'
+                        );
+
+                    }
+
+                }, 500);
+
+        }
+
+
+
+        /* =====================================================
+           VALIDAR CÓDIGO DE EVALUACIÓN 2
+           ===================================================== */
+
+        function validarCodigo2() {
+
+            const campo =
+                document.getElementById('codigo2');
+
+            const mensaje =
+                document.getElementById(
+                    'mensajeCodigo2'
+                );
+
+
+            /*
+             * Obtener código.
+             *
+             * Se eliminan espacios y se convierte
+             * a mayúsculas.
+             */
+
+            const codigo =
+                campo.value
+                    .trim()
+                    .toUpperCase();
+
+
+            /*
+             * Validar.
+             */
+
+            if (
+                codigo === CODIGO_EVALUACION_2
+            ) {
+
+
+                /*
+                 * Ocultar panel.
+                 */
+
+                document
+                    .getElementById('panelCodigo2')
+                    .classList.remove('active');
+
+
+                /*
+                 * Limpiar campo.
+                 */
+
+                campo.value = '';
+
+
+                mensaje.textContent = '';
+
+
+                /*
+                 * Habilitar Evaluación 2.
+                 */
+
+                habilitarBoton(
+                    'btnEvaluacion2'
+                );
+
+
+                /*
+                 * Actualizar estado.
+                 */
+
+                actualizarEstado(
+                    'Código correcto. Ahora puede iniciar la Evaluación 2.'
+                );
+
+
+            } else {
+
+
+                /*
+                 * Código incorrecto.
+                 */
+
+                mensaje.textContent =
+                    'Código incorrecto. Verifique el código e inténtelo nuevamente.';
+
+                mensaje.className =
+                    'code-message error';
+
+
+                campo.select();
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           ABRIR EVALUACIÓN 2
+           ===================================================== */
+
+        function abrirEvaluacion2(event) {
+
+            event.preventDefault();
+
+
+            const boton =
+                document.getElementById(
+                    'btnEvaluacion2'
+                );
+
+
+            /*
+             * Verificar si está bloqueado.
+             */
+
+            if (
+                boton.classList.contains('disabled')
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * Si ya está abierta,
+             * enfocarla.
+             */
+
+            if (
+                ventanaEvaluacion2 &&
+                !ventanaEvaluacion2.closed
+            ) {
+
+                ventanaEvaluacion2.focus();
+
+                return;
+
+            }
+
+
+            /*
+             * Abrir Evaluación 2.
+             */
+
+            ventanaEvaluacion2 =
+                window.open(
+                    URL_EVALUACION_2,
+                    'Ev2',
+                    CONFIG_VENTANA
+                );
+
+
+            /*
+             * Verificar bloqueo del navegador.
+             */
+
+            if (!ventanaEvaluacion2) {
+
+                alert(
+                    'El navegador bloqueó la ventana de la Evaluación 2.\n\n' +
+                    'Permita las ventanas emergentes para este sitio.'
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Deshabilitar mientras está abierta.
+             */
+
+            deshabilitarBoton(
+                'btnEvaluacion2'
+            );
+
+
+            actualizarEstado(
+                'Complete la Evaluación 2 y cierre la ventana al finalizar.'
+            );
+
+
+            /*
+             * Vigilar cierre.
+             */
+
+            vigilarEvaluacion2();
+
+        }
+
+
+
+        /* =====================================================
+           VIGILAR EVALUACIÓN 2
+           ===================================================== */
+
+        function vigilarEvaluacion2() {
+
+            const intervalo =
+                setInterval(function () {
+
+
+                    if (
+                        ventanaEvaluacion2 &&
+                        ventanaEvaluacion2.closed
+                    ) {
+
+                        clearInterval(intervalo);
+
+
+                        /*
+                         * Mostrar panel de código.
+                         */
+
+                        document
+                            .getElementById('panelCodigo3')
+                            .classList.add('active');
+
+
+                        /*
+                         * Enfocar campo.
+                         */
+
+                        document
+                            .getElementById('codigo3')
+                            .focus();
+
+
+                        actualizarEstado(
+                            'La Evaluación 2 fue cerrada. Ingrese el código proporcionado por el evaluador.'
+                        );
+
+                    }
+
+                }, 500);
+
+        }
+
+
+
+        /* =====================================================
+           VALIDAR CÓDIGO DE EVALUACIÓN 3
+           ===================================================== */
+
+        function validarCodigo3() {
+
+            const campo =
+                document.getElementById('codigo3');
+
+            const mensaje =
+                document.getElementById(
+                    'mensajeCodigo3'
+                );
+
+
+            /*
+             * Obtener código.
+             */
+
+            const codigo =
+                campo.value
+                    .trim()
+                    .toUpperCase();
+
+
+            /*
+             * Validar código.
+             */
+
+            if (
+                codigo === CODIGO_EVALUACION_3
+            ) {
+
+
+                /*
+                 * Ocultar panel.
+                 */
+
+                document
+                    .getElementById('panelCodigo3')
+                    .classList.remove('active');
+
+
+                /*
+                 * Limpiar campo.
+                 */
+
+                campo.value = '';
+
+
+                mensaje.textContent = '';
+
+
+                /*
+                 * Habilitar Evaluación 3.
+                 */
+
+                habilitarBoton(
+                    'btnEvaluacion3'
+                );
+
+
+                /*
+                 * Actualizar estado.
+
+                 */
+
+                actualizarEstado(
+                    'Código correcto. Ahora puede iniciar la Evaluación 3.'
+                );
+
+
+            } else {
+
+
+                /*
+                 * Código incorrecto.
+                 */
+
+                mensaje.textContent =
+                    'Código incorrecto. Verifique el código e inténtelo nuevamente.';
+
+                mensaje.className =
+                    'code-message error';
+
+
+                campo.select();
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           ABRIR EVALUACIÓN 3
+           ===================================================== */
+
+        function abrirEvaluacion3(event) {
+
+            event.preventDefault();
+
+
+            const boton =
+                document.getElementById(
+                    'btnEvaluacion3'
+                );
+
+
+            /*
+             * Verificar que esté habilitada.
+             */
+
+            if (
+                boton.classList.contains('disabled')
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * Abrir Evaluación 3.
+             */
+
+            const ventanaEvaluacion3 =
+                window.open(
+                    URL_EVALUACION_3,
+                    'Ev3',
+                    CONFIG_VENTANA
+                );
+
+
+            /*
+             * Verificar si el navegador
+             * bloqueó la ventana.
+
+             */
+
+            if (!ventanaEvaluacion3) {
+
+                alert(
+                    'El navegador bloqueó la ventana de la Evaluación 3.\n\n' +
+                    'Permita las ventanas emergentes para este sitio.'
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Deshabilitar el botón mientras
+             * la evaluación esté abierta.
+             */
+
+            deshabilitarBoton(
+                'btnEvaluacion3'
+            );
+
+
+            actualizarEstado(
+                'La Evaluación 3 está abierta.'
+            );
+
+        }
+
+
+    </script>
+
+
 </body>
+
 </html>
